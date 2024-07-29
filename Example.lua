@@ -1,5 +1,3 @@
--- New example script written by wally
--- You can suggest changes with a pull request or something
 
 local repo = 'https://raw.githubusercontent.com/idontknowwhattonamemyself/LinoriaLib/main/'
 
@@ -8,73 +6,36 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))
 local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 
 local Window = Library:CreateWindow({
-    -- Set Center to true if you want the menu to appear in the center
-    -- Set AutoShow to true if you want the menu to appear when it is created
-    -- Position and Size are also valid options here
-    -- but you do not need to define them unless you are changing them :)
 
     Title = 'Example menu',
     Center = true, 
     AutoShow = true,
 })
 
--- You do not have to set your tabs & groups up this way, just a prefrence.
 local Tabs = {
-    -- Creates a new tab titled Main
     Main = Window:AddTab('Main'), 
     ['UI Settings'] = Window:AddTab('UI Settings'),
 }
 
--- Groupbox and Tabbox inherit the same functions
--- except Tabboxes you have to call the functions on a tab (Tabbox:AddTab(name))
 local LeftGroupBox = Tabs.Main:AddLeftGroupbox('Groupbox')
 
--- Tabboxes are a tiny bit different, but here's a basic example:
---[[
-
-local TabBox = Tabs.Main:AddLeftTabbox() -- Add Tabbox on left side
-
-local Tab1 = TabBox:AddTab('Tab 1')
-local Tab2 = TabBox:AddTab('Tab 2')
-
--- You can now call AddToggle, etc on the tabs you added to the Tabbox
-]]
-
--- Groupbox:AddToggle
--- Arguments: Index, Options
 LeftGroupBox:AddToggle('MyToggle', {
     Text = 'This is a toggle',
     Default = true, -- Default value (true / false)
     Tooltip = 'This is a tooltip', -- Information shown when you hover over the toggle
 })
 
-
--- Fetching a toggle object for later use:
--- Toggles.MyToggle.Value
-
--- Toggles is a table added to getgenv() by the library
--- You index Toggles with the specified index, in this case it is 'MyToggle'
--- To get the state of the toggle you do toggle.Value
-
--- Calls the passed function when the toggle is updated
 Toggles.MyToggle:OnChanged(function()
-    -- here we get our toggle object & then get its value
     print('MyToggle changed to:', Toggles.MyToggle.Value)
 end)
 
--- This should print to the console: "My toggle state changed! New value: false"
 Toggles.MyToggle:SetValue(false)
 
--- Groupbox:AddButton
--- Arguments: Text, Callback
 
 local MyButton = LeftGroupBox:AddButton('Button', function()
     print('You clicked a button!')
 end)
 
--- Button:AddButton
--- Arguments: Text, Callback
--- Adds a sub button to the side of the main button
 
 local MyButton2 = MyButton:AddButton('Sub button', function()
     print('You clicked a sub button!')
@@ -310,4 +271,3 @@ SaveManager:BuildConfigSection(Tabs['UI Settings'])
 ThemeManager:ApplyToTab(Tabs['UI Settings'])
 
 -- You can use the SaveManager:LoadAutoloadConfig() to load a config 
--- which has been marked to be one that auto loads!
