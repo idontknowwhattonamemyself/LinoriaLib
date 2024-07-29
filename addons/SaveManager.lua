@@ -176,8 +176,8 @@ local SaveManager = {} do
 	end
 
 	function SaveManager:LoadAutoloadConfig()
-		if isfile(self.Folder .. '/settings/autoload.txt') then
-			local name = readfile(self.Folder .. '/settings/autoload.txt')
+		if isfile(self.Folder .. '/settings/autoload') then
+			local name = readfile(self.Folder .. '/settings/autoload')
 
 			local success, err = self:Load(name)
 			if not success then
@@ -240,7 +240,7 @@ local SaveManager = {} do
 		
 		section:AddButton('Autoload config', function()
 			local name = Options.SaveManager_ConfigList.Value
-			writefile(self.Folder .. '/settings/autoload.txt', name)
+			writefile(self.Folder .. '/settings/autoload', name)
 			SaveManager.AutoloadLabel:SetText('Current autoload config: ' .. name)
 			self.Library:Notify(string.format('Set %q to auto load', name))
 		end)
@@ -253,8 +253,8 @@ local SaveManager = {} do
 
 		SaveManager.AutoloadLabel = section:AddLabel('Current autoload config: none', true)
 
-		if isfile(self.Folder .. '/settings/autoload.txt') then
-			local name = readfile(self.Folder .. '/settings/autoload.txt')
+		if isfile(self.Folder .. '/settings/autoload') then
+			local name = readfile(self.Folder .. '/settings/autoload')
 			SaveManager.AutoloadLabel:SetText('Current autoload config: ' .. name)
 		end
 
